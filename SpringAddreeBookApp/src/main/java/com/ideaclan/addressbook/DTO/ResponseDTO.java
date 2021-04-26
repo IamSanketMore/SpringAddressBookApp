@@ -1,5 +1,8 @@
 package com.ideaclan.addressbook.DTO;
 
+import lombok.Data;
+
+@Data
 public class ResponseDTO
 {
     private String message;
@@ -7,22 +10,6 @@ public class ResponseDTO
 
     public ResponseDTO(String message, Object data) {
         this.message = message;
-        this.data = data;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
         this.data = data;
     }
 }
