@@ -10,34 +10,40 @@ import java.util.List;
 @Service
 public class AddressBookService implements IAddressBookService
 {
+    private List<AddressBookData> addressBookDataList = new ArrayList<>();
     @Override
     public List<AddressBookData> getAddressBookData() {
-        List<AddressBookData> addressBookList = new ArrayList<AddressBookData>();
-        addressBookList.add(new AddressBookData(1, new AddressBookDTO("Sanket", "More","Depour Dhule",425005,"Dhule","MH")));
-        return addressBookList;
+        return addressBookDataList;
     }
 
     @Override
-    public AddressBookData getAddressBookById(int contId) {
-        AddressBookData addressBookData = new AddressBookData(1, new AddressBookDTO("Sanket", "More","Depour Dhule",425005,"Dhule","MH"));
-        return addressBookData;
+    public AddressBookData getAddressBookById(int bookId) {
+        return addressBookDataList.get(bookId-1);
     }
 
     @Override
     public AddressBookData createAddressBookData(AddressBookDTO addressBookDTO) {
-        AddressBookData addressBookData = new AddressBookData(1, addressBookDTO);
+        AddressBookData addressBookData = null;
+        addressBookData = new AddressBookData(addressBookDataList.size()+1, addressBookDTO);
+        addressBookDataList.add(addressBookData);
         return addressBookData;
     }
 
     @Override
-    public AddressBookData updateAddressBookData(int contId, AddressBookDTO addressBookDTO) {
-        AddressBookData addressBookData = new AddressBookData(1, addressBookDTO);
+    public AddressBookData updateAddressBookData(int bookId, AddressBookDTO addressBookDTO) {
+        AddressBookData addressBookData = this.getAddressBookById(bookId);
+        addressBookData.setFirstName(addressBookDTO.firstName);
+        addressBookData.setLastName(addressBookDTO.lastName);
+        addressBookData.setAddress(addressBookDTO.address);
+        addressBookData.setZip(addressBookDTO.zip);
+        addressBookData.setCity(addressBookDTO.city);
+        addressBookData.setState(addressBookDTO.state);
+        addressBookDataList.set(bookId-1,addressBookData);
         return addressBookData;
     }
 
     @Override
-    public void deleteAddressBookData(int contId) {
-        // TODO Auto-generated method stub
-
+    public void deleteAddressBookData(int bookId) {
+       addressBookDataList.remove(bookId-1);
     }
 }
