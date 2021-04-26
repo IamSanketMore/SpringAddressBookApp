@@ -1,6 +1,7 @@
 package com.ideaclan.addressbook.service;
 
 import com.ideaclan.addressbook.DTO.AddressBookDTO;
+import com.ideaclan.addressbook.exceptions.AddressBookException;
 import com.ideaclan.addressbook.model.AddressBookData;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,9 @@ public class AddressBookService implements IAddressBookService
 
     @Override
     public AddressBookData getAddressBookById(int bookId) {
-        return addressBookDataList.get(bookId-1);
+        return addressBookDataList.stream()
+                .filter(bookData->bookData.getAddressBookId()==bookId)
+                .findFirst().orElseThrow(()-> new AddressBookException("Contact not found"));
     }
 
     @Override

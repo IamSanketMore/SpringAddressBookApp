@@ -22,5 +22,12 @@ public class AddressBookExceptionHandler
         return new ResponseEntity<ResponseDTO>(responseDTO , HttpStatus.BAD_REQUEST);
 
         }
+    @ExceptionHandler(AddressBookException.class)
+    public ResponseEntity<ResponseDTO> idNotFoundException(AddressBookException exception){
+        ResponseDTO responseDTO =new ResponseDTO("ID is Not Associated With any Data", exception.getMessage());
+
+        return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.BAD_REQUEST);
+    }
+
 
 }
